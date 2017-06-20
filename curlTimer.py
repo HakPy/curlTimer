@@ -62,7 +62,11 @@ class req(object):
 valid = req('validReq')
 valid.executeRequests(10)
 print 'Average total connection time for valid account (ms): ', int(statistics.mean(valid.returnResults()['total']))
+#Uncomment for individual requests
+#print (str(valid.returnResults()['total']))
 
 invalid = req('invalidReq')
 invalid.executeRequests(10)
 print 'Average total connection time for inavlaid account (ms): ', int(statistics.mean(invalid.returnResults()['total']))
+#Uncomment for individual requests
+#print (str(invalid.returnResults()['total']))

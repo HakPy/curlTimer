@@ -1,8 +1,36 @@
+#!/usr/bin/python
 import subprocess
 from decimal import *
 import statistics
+import argparse
+from argparse import RawTextHelpFormatter
+import sys
 
 #sudo -H pip2 install statistics to get python3's statistics module
+
+#Header on the help page
+parser = argparse.ArgumentParser(description="----------Program-Help-Page----------", formatter_class=RawTextHelpFormatter)
+
+#Inline Arguments
+parser.add_argument("-v", help="The file containing the valid curl request \n")
+parser.add_argument("-i", help="The file containing the invalid curl request \n")
+parser.add_argument("-r", help="The amount of requests you would like to run (default=10) \n", type=int)
+
+args = parser.parse_args()
+
+#Ensures that the arguments are correctly provided
+if args.v == None:
+	print 'You forgot to select a file containing a valid curl request. \n Use -h to display the arguments.\n'
+	exit()
+if args.i == None:
+	print 'You forgot to select a file containing an invalid curl request. \n Use -h to display the arguments.\n'
+	exit()
+
+#If -r isn't used, have a default of 10 requests
+if args.r == None:
+	default = int(10)
+else:
+	default = int(args.r) 
 
 class req(object):
     def __init__(self, inputFile):
@@ -59,14 +87,14 @@ class req(object):
 
 #--------------------------------------------------------------------------------------------------------#
 
-valid = req('validReq')
-valid.executeRequests(10)
+valid = req(args.v)
+valid.executeRequests(default)
 print 'Average total connection time for valid account (ms): ', int(statistics.mean(valid.returnResults()['total']))
 #Uncomment for individual requests
-#print(str(valid.returnResults()['total']))
+#print 'Individual Requests (ms): ', (str(valid.returnResults()['total']))
 
-invalid = req('invalidReq')
-invalid.executeRequests(10)
-print 'Average total connection time for inavlaid account (ms): ', int(statistics.mean(invalid.returnResults()['total']))
+invalid = req(args.i)
+invalid.executeRequests(default)
+print 'Average total connection time for invalid account (ms): ', int(statistics.mean(invalid.returnResults()['total']))
 #Uncomment for individual requests
-#print(str(invalid.returnResults()['total']))
+#print 'Individual Requests (ms): ', (str(invalid.returnResults()['total']))

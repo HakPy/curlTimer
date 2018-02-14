@@ -95,7 +95,7 @@ valid.executeRequests(default)
 ValidOutput = (str(valid.returnResults()['total']))
 if args.ss == True:
 	ValidOutput = ValidOutput.split(",")
-	print("Individual Requests (ms): "+"		".join(ValidOutput).strip(" ")+"\n---------------------------")
+	print("Individual Requests (ms): "+"	".join(ValidOutput).strip(" ")+"\n---------------------------")
 else:
 	print("Individual Requests (ms): "+ValidOutput)
 
@@ -107,6 +107,6 @@ print 'Average total connection time for invalid account (ms): ', int(statistics
 InvalidOutput = (str(invalid.returnResults()['total']))
 if args.ss == True:
 	InvalidOutput = InvalidOutput.split(",")
-	print("Individual Requests (ms): "+"		".join(InvalidOutput).strip(" ")+"\n---------------------------")
+	print("Individual Requests (ms): "+"	".join(InvalidOutput).strip(" ")+"\n---------------------------")
 else:
 	print ('Individual Requests (ms): '+InvalidOutput )

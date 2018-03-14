@@ -90,7 +90,7 @@ class req(object):
 
 valid = req(args.v)
 valid.executeRequests(default)
-
+print 'Average total connection time for valid account (ms): ', int(statistics.mean(valid.returnResults()['total']))
 #Uncomment for individual requests
 ValidOutput = (str(valid.returnResults()['total']))
 if args.ss == True:

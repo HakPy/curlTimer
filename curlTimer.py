@@ -14,7 +14,8 @@ parser = argparse.ArgumentParser(description="----------Program-Help-Page-------
 #Inline Arguments
 parser.add_argument("-v", help="The file containing the valid curl request \n")
 parser.add_argument("-i", help="The file containing the invalid curl request \n")
-parser.add_argument("-r", help="The amount of requests you would like to run (default=10) \n", type=int)
+parser.add_argument("-r", help="The amount of requests you would like to run \n", type=int)
+parser.add_argument("-ss", help="Use this flag to modify output to a copy/paste friendly format \n", action="store_true")
 
 args = parser.parse_args()
 
@@ -91,10 +92,21 @@ valid = req(args.v)
 valid.executeRequests(default)
 print 'Average total connection time for valid account (ms): ', int(statistics.mean(valid.returnResults()['total']))
 #Uncomment for individual requests
-#print 'Individual Requests (ms): ', (str(valid.returnResults()['total']))
+ValidOutput = (str(valid.returnResults()['total']))
+if args.ss == True:
+	ValidOutput = ValidOutput.split(",")
+	print("Individual Requests (ms): "+"	".join(ValidOutput).strip(" ")+"\n---------------------------")
+else:
+	print("Individual Requests (ms): "+ValidOutput)
 
 invalid = req(args.i)
 invalid.executeRequests(default)
 print 'Average total connection time for invalid account (ms): ', int(statistics.mean(invalid.returnResults()['total']))
 #Uncomment for individual requests
-#print 'Individual Requests (ms): ', (str(invalid.returnResults()['total']))
+
+InvalidOutput = (str(invalid.returnResults()['total']))
+if args.ss == True:
+	InvalidOutput = InvalidOutput.split(",")
+	print("Individual Requests (ms): "+"	".join(InvalidOutput).strip(" ")+"\n---------------------------")
+else:
+	print ('Individual Requests (ms): '+InvalidOutput )
